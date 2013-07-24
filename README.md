@@ -3,7 +3,7 @@ web-exception-manager
 
 Plugin para visualización de excepciones y errores en aplicaciones JAVA like Grails, con detalle de líneas de código y visualización de código fuente
 
-** Instalación **
+**Instalación**
 
 Instalar en la IDE: http://projectlombok.org/download.html
 Modificar el archivo application.properties indicando la ubicación del proyecto y la ubicación del repositorio de Maven.
