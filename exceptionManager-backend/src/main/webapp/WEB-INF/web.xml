@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+	<!-- Map all errors to Spring MVC handler method. See CustomErrorController.generalError() -->
+
+
+	<servlet>
+		<servlet-name>cometd</servlet-name>
+		<servlet-class>org.cometd.java.annotation.AnnotationCometdServlet</servlet-class>
+		<init-param>
+			<param-name>timeout</param-name>
+			<param-value>120000</param-value>
+		</init-param>
+		<init-param>
+			<param-name>maxSessionsPerBrowser</param-name>
+			<param-value>-1</param-value>
+		</init-param>
+		<init-param>
+			<param-name>allowMultiSessionsNoBrowser</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>logLevel</param-name>
+			<param-value>3</param-value>
+		</init-param>
+		<init-param>
+			<param-name>services</param-name>
+			<param-value>ar.com.fluxit.em.service.CometService</param-value>
+		</init-param>
+		<async-supported>true</async-supported>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>cometd</servlet-name>
+		<url-pattern>/cometd/*</url-pattern>
+	</servlet-mapping>
+
+
+
+	<error-page>
+		<location>/generalError</location>
+	</error-page>
+</web-app>

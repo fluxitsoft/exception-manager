@@ -47,11 +47,11 @@ Instalar MongoDB - apt-get install mongodb
         </servlet-class>
         <init-param>
        		<param-name>M2_REPO</param-name>
-        	<param-value>/home/xxx/.m2/repository</param-value>
+        	<param-value>/home/anselmo/.m2/repository</param-value>
         </init-param>
         <init-param>
        		<param-name>PROJECT_FOLDER</param-name>
-        	<param-value>/home/xxx/workspace/project</param-value>
+        	<param-value>/home/anselmo/dev/workspaceIntegra/integraN/integraN-backend</param-value>
         </init-param>
 	</servlet>
 
