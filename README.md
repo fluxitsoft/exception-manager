@@ -12,7 +12,9 @@ Instalar MongoDB - apt-get install mongodb
 
 
 **Utilización**
+
 1. Ingresar a la aplicación de exceptionManager y registrar una nueva aplicación.
+
 2. Con ese id, ir a la aplicación que desea registrar errores y utilizar una instancia de ErrorManager para registrar errores.
 
 * Agregar dependencias de Maven al proyecto.
