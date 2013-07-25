@@ -12,9 +12,10 @@ Instalar MongoDB - apt-get install mongodb
 
 
 **Utilización**
-* Ingresar a la aplicación de exceptionManager y registrar una nueva aplicación.
-* Con ese id, ir a la aplicación que desea registrar errores y utilizar una instancia de ErrorManager para registrar errores.
-- Agregar dependencias de Maven al proyecto.
+1. Ingresar a la aplicación de exceptionManager y registrar una nueva aplicación.
+2. Con ese id, ir a la aplicación que desea registrar errores y utilizar una instancia de ErrorManager para registrar errores.
+
+* Agregar dependencias de Maven al proyecto.
 ```xml
 		<dependency>
 			<groupId>ar.com.fluxit</groupId>
@@ -28,17 +29,18 @@ Instalar MongoDB - apt-get install mongodb
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 ```
-- Agregar en algún punto de la aplicación que usted considera clave para detectar errores el registro de la excepción producida.
+* Agregar en algún punto de la aplicación que usted considera clave para detectar errores el registro de la excepción producida.
 
 ```java
-	 ErrorManager errorManager = new ErrorManagerImpl(applicationId, "http://localhost:8080/exceptionManager-backend/registerError");
-	...
+ErrorManager errorManager = 
+	new ErrorManagerImpl(applicationId, "http://localhost:8080/exceptionManager-backend/registerError");
 
-	errorManager.registerError(error);
+...
 
+errorManager.registerError(error);
 ```
 
-- Agregar un Servlet en los casos que desea exponer el código fuente del proyecto. El único provider implementado hasta el momento es el que permite recolectar el código fuente desde el archivo de metadata de eclipse (.classpath).
+* Agregar un Servlet en los casos que desea exponer el código fuente del proyecto. El único provider implementado hasta el momento es el que permite recolectar el código fuente desde el archivo de metadata de eclipse (.classpath).
 ```xml
      <servlet>
 		<servlet-name>ExceptionManagerSourceCodeProvider</servlet-name>
