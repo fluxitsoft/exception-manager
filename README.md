@@ -1,3 +1,7 @@
+---
+published: false
+---
+
 Exception-manager [![](https://api.travis-ci.org/fluxitsoft/exception-manager.png?branch=master)](http://travis-ci.org/fluxitsoft/exception-manager) 
 =====================
 
@@ -69,10 +73,5 @@ errorManager.registerError(error);
 
 **TODOs**
 
-* Buscar el código fuente por el nombre del fileName que devuelve el StackTrace.
-* Mostrar el código de error HTTP.
-* Manejear las innerClasses.
-* Eliminar la utilización de JPA utilizando para todos los casos MongoDD.
-* Arreglear el widget de highlight porque parsea mal el código java y se ve como comentario.
-* Mostrar en la UI información del contexto: request, variables de entorno, variables del sistema, información del heap, etc..
-* Etc, etc..
+https://github.com/fluxitsoft/exception-manager/issues
+
