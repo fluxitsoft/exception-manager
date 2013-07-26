@@ -17,6 +17,7 @@ import ar.com.fluxit.em.model.Application;
 import ar.com.fluxit.em.model.Error;
 import ar.com.fluxit.em.model.ErrorDocument;
 import ar.com.fluxit.em.model.ExceptionDescriptor;
+import ar.com.fluxit.em.model.MemoryContext;
 
 @Service
 public class ExceptionManagerService {
@@ -73,6 +74,9 @@ public class ExceptionManagerService {
 	public Error getError(String errorId) {
 		ErrorDocument errorDocument = mongoOperations.findById(errorId,
 				ErrorDocument.class, "errors");
+		if(errorDocument.getMemoryContext() == null){
+			errorDocument.setMemoryContext(new MemoryContext());
+		}
 		
 		
 		Application application = applicationService.getApplication(errorDocument.getApplicationKey());

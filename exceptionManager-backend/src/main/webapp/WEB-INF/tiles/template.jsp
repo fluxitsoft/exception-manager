@@ -6,26 +6,26 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
 
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
 	<title>Exception Manager</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	
-	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-	
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
+    <script src="<c:url value="/resources/js/cometd.js" />"></script>
+    <script src="<c:url value="/resources/js/jquery.cometd.js" />"></script>
+    <script src="<c:url value="/resources/js/jquery.pnotify.min.js" />"></script>
 
 	<script type="text/javascript">
 		var contextUrl = '<c:url value="/"/>';
-
 	</script>
 	
 	<link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet" media="screen" />
 	<link href="<c:url value="/resources/css/core.css" />" rel="stylesheet" media="screen" />
 	
 	<link href="<c:url value="/resources/css/jquery.pnotify.default.css"/>" media="all" rel="stylesheet" type="text/css" />
-<!-- Include this file if you are using Pines Icons. -->
-<link href="<c:url value="/resources/css/jquery.pnotify.default.icons.css"/>" media="all" rel="stylesheet" type="text/css" />
+	<link href="<c:url value="/resources/css/jquery.pnotify.default.icons.css"/>" media="all" rel="stylesheet" type="text/css" />
 	
 	<tilesx:useAttribute id="styles" name="styles" classname="java.util.List" ignore="true" />
 	<c:forEach var="cssName" items="${styles}">
@@ -63,15 +63,7 @@
 	</div>
 	<!-- End of page content -->
 	<tiles:insertAttribute name="footer"  defaultValue="" />
-	
-	<script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
-    
-   <script src="<c:url value="/resources/js/cometd.js" />"></script>
-        
-    <script src="<c:url value="/resources/js/jquery.cometd.js" />"></script>
-    
-   <script src="<c:url value="/resources/js/jquery.pnotify.min.js" />"></script>
+
 
 </body>
 </html>

@@ -5,30 +5,36 @@ import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryMXBean;
+import java.lang.management.MemoryUsage;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import lombok.Data;
 import ar.com.fluxit.em.model.Error;
 import ar.com.fluxit.em.model.ExceptionDetail;
+import ar.com.fluxit.em.model.MemoryContext;
 import ar.com.fluxit.em.model.RequestContext;
 
 import com.google.common.base.Throwables;
 import com.google.gson.Gson;
+
 @Data
 public class ErrorManagerImpl implements ErrorManager {
 
 	private String applicationKey;
 
 	private String errorManagerUrl;
-	
-	
+
 	public ErrorManagerImpl(String applicationKey, String errorManagerUrl) {
 		super();
 		this.applicationKey = applicationKey;
@@ -45,10 +51,12 @@ public class ErrorManagerImpl implements ErrorManager {
 	public void registerError(Throwable throwable, HttpServletRequest request) {
 
 		Error error = new Error();
-		
+
 		error.setApplicationKey(applicationKey);
 
 		this.fillRequestContext(request, error);
+		
+		this.fillMemoryUsage(error);
 
 		error.setEnvironmentProperties(System.getenv());
 		error.setSystemProperties(new HashMap(System.getProperties()));
@@ -72,12 +80,14 @@ public class ErrorManagerImpl implements ErrorManager {
 			urlc.setDoInput(true);
 			urlc.setDoOutput(true);
 			urlc.setRequestProperty("Accept", "application/json");
-			urlc.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-	        OutputStream os = urlc.getOutputStream();
-	        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os));
-	        writer.write(json);
-	        writer.close();
-	        os.close();
+			urlc.setRequestProperty("Content-Type",
+					"application/json; charset=UTF-8");
+			OutputStream os = urlc.getOutputStream();
+			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+					os));
+			writer.write(json);
+			writer.close();
+			os.close();
 
 			BufferedReader br = new BufferedReader(new InputStreamReader(
 					urlc.getInputStream()));
@@ -98,9 +108,50 @@ public class ErrorManagerImpl implements ErrorManager {
 			requestContext.setQueryString(request.getQueryString());
 			requestContext.setMethod(request.getMethod());
 			requestContext.setParameters(request.getParameterMap());
+			
+			requestContext.setContextPath(request.getContextPath());
+			requestContext.setRequestSessionId(request.getRequestedSessionId());
+			requestContext.setMethod(request.getMethod());
+			requestContext.setContextType(request.getContentType());
+			
 
+			Enumeration<String> enumeration = request.getHeaderNames();
+
+			while (enumeration.hasMoreElements()) {
+				String headerName = enumeration.nextElement();
+				String headerValue = request.getHeader(headerName);
+				requestContext.getHeaders().put(headerName, headerValue);
+			}
+			
+			
+//			for (Cookie cookie : request.getCookies()) {
+//				requestContext.getCookies().add(cookie);
+//			}
 			error.setRequestContext(requestContext);
 		}
+	}
+
+	private void fillMemoryUsage(Error error) {
+
+		MemoryMXBean memBean = ManagementFactory.getMemoryMXBean();
+		MemoryUsage heap = memBean.getHeapMemoryUsage();
+		MemoryUsage nonHeap = memBean.getNonHeapMemoryUsage();
+		
+		MemoryContext memoryContext = new MemoryContext();
+		memoryContext.setHeapInit(heap.getInit());
+		memoryContext.setHeapCommitted(heap.getCommitted());
+		memoryContext.setHeapMax(heap.getMax());
+		memoryContext.setHeapUsed(heap.getUsed());
+		
+		
+		memoryContext.setNonHeapInit(nonHeap.getInit());
+		memoryContext.setNonHeapCommitted(nonHeap.getCommitted());
+		memoryContext.setNonHeapMax(nonHeap.getMax());
+		memoryContext.setNonHeapUsed(nonHeap.getUsed());
+		
+		
+		error.setMemoryContext(memoryContext);
+
 	}
 
 	private List<ExceptionDetail> fillExceptionDetails(Throwable throwable) {

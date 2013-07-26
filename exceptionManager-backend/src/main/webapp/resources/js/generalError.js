@@ -2,11 +2,21 @@ $(document).ready(function() {
 
 	changeException();
 	retrieveSourceCode();
+	layoutTabs();
 	layoutStackTrace();
 	initialSelection();
 	updateExceptionDescriptor();
 
 });
+
+
+layoutTabs = function(){
+	
+	$('#errorTab a').click(function(e) {
+		e.preventDefault();
+		$(this).tab('show');
+	});
+}
 
 updateExceptionDescriptor = function() {
 
@@ -122,7 +132,11 @@ retrieveSourceCode = function() {
 															".highlighted")
 															.offset().top - 241
 												}, 0);
+									},
+									error: function(e){
+										console.log("Source code provider error: " + e)
 									}
+									
 								});
 
 					});

@@ -23,5 +23,7 @@ public class Error {
 	private Map<String, String> environmentProperties;
 
 	private Map<String, String> systemProperties;
+	
+	private MemoryContext memoryContext = new MemoryContext();
 
 }

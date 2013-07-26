@@ -8,19 +8,13 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
 
 
-<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script type="text/javascript">
-	var contextUrl = '<c:url value="/"/>';
-
 	var applicationSourceCodeUrl = "<c:out value='${error.sourceCodeUrlProvider}'/>";
 </script>
 
-<link href="<c:url value="/resources/css/bootstrap.min.css" />"
-	rel="stylesheet" media="screen" />
+
 <link href="<c:url value="/resources/css/core.css" />" rel="stylesheet"
 	media="screen" />
-
-
 
 <script type="text/javascript"
 	src="<c:url value='/resources/js/sh/shCore.js'/>"></script>
@@ -42,51 +36,208 @@
 </head>
 
 
-	<a id="toggle-update" href="#" class="toggles"><i
-		class="icon-chevron-down"></i></a>
-		
-	<ul class="nav nav-pills">
-		<c:forEach items="${error.exceptionDetails}" var="exceptionDetail">
-			<li class="exception-detail"><a href="#">${exceptionDetail.className}</a></li>
+<a id="toggle-update" href="#" class="toggles"><i
+	class="icon-chevron-down"></i></a>
+
+<ul class="nav nav-tabs" id="errorTab">
+	<li class="active"><a href="#stacktrace">Stacktrace</a></li>
+	<li><a href="#request">Request context</a></li>
+	<li><a href="#variables">Variables context</a></li>
+	<li><a href="#memory">Memory context</a></li>
+</ul>
+
+
+<div class="tab-content">
+
+	<div class="tab-pane active" id="stacktrace">
+
+		<ul class="nav nav-pills">
+			<c:forEach items="${error.exceptionDetails}" var="exceptionDetail">
+				<li class="exception-detail"><a href="#">${exceptionDetail.className}</a></li>
+			</c:forEach>
+		</ul>
+
+
+		<c:forEach items="${error.exceptionDetails}" var="exceptionDetail"
+			varStatus="status">
+			<span id="exceptionMessage-${status.count - 1}"
+				class="label label-warning">${exceptionDetail.message}</span>
 		</c:forEach>
-	</ul>
 
+		<br /> <br />
+		<div class="container-fluid">
+			<div class="row-fluid">
 
-	<c:forEach items="${error.exceptionDetails}" var="exceptionDetail"
-		varStatus="status">
-		<span id="exceptionMessage-${status.count - 1}"
-			class="label label-warning">${exceptionDetail.message}</span>
-	</c:forEach>
+				<div id="sidebar" class="span6">
+					<c:forEach items="${error.exceptionDetails}" var="exceptionDetail"
+						varStatus="status">
+						<div id="stacktrace-${status.count - 1}">
+							<c:forEach items="${exceptionDetail.stackTraceElements}"
+								var="stackTraceElement">
+								<span class="label stackTraceElement"
+									classname="${stackTraceElement.className}"
+									linenumber="${stackTraceElement.lineNumber}">
+									${stackTraceElement.className}.${stackTraceElement.methodName}:
+									${stackTraceElement.lineNumber}</span>
+								<br />
+							</c:forEach>
+						</div>
+					</c:forEach>
 
-<br/>
-<br/>
-	<div class="container-fluid">
-		<div class="row-fluid">
-
-			<div id="sidebar" class="span6">
-				<c:forEach items="${error.exceptionDetails}" var="exceptionDetail"
-					varStatus="status">
-					<div id="stacktrace-${status.count - 1}">
-						<c:forEach items="${exceptionDetail.stackTraceElements}"
-							var="stackTraceElement">
-							<span class="label stackTraceElement"
-								classname="${stackTraceElement.className}"
-								linenumber="${stackTraceElement.lineNumber}">
-								${stackTraceElement.className}.${stackTraceElement.methodName}:
-								${stackTraceElement.lineNumber}</span>
-							<br />
-						</c:forEach>
-					</div>
-				</c:forEach>
-
+				</div>
+				<div id="content" class="span6" style="overflow: none;">
+					<div id="sourceCode"></div>
+					<a id="toggle-stack" href="#" class="toggles"><i
+						class="icon-chevron-left"></i></a>
+				</div>
 			</div>
-			<div id="content" class="span6" style="overflow: none;">
-				<div id="sourceCode"></div>
-				<a id="toggle-stack" href="#" class="toggles"><i
-					class="icon-chevron-left"></i></a>
-			</div>
+
 		</div>
+
+
+	</div>
+	<div class="tab-pane" id="request">
+
+		<h3>Headers:</h3>
+		<table class="table table-striped">
+			<tr>
+				<th>Name</th>
+				<th>Value</th>
+
+			</tr>
+			<c:forEach items="${error.requestContext.headers}" var="variable">
+				<tr>
+					<td>${variable.key}</td>
+					<td>${variable.value}</td>
+				</tr>
+			</c:forEach>
+		</table>
 		
+		<h3>Parameters:</h3>
+		<table class="table table-striped">
+			<tr>
+				<th>Name</th>
+				<th>Value</th>
+
+			</tr>
+			<c:forEach items="${error.requestContext.parameters}" var="variable">
+				<tr>
+					<td>${variable.key}</td>
+					<td>${variable.value}</td>
+				</tr>
+			</c:forEach>
+		</table>
+		
+		<h3>Others</h3>
+		<table class="table table-striped">
+			<tr>
+				<td>Method</td>
+				<td>${error.requestContext.method}</td>
+			</tr>
+			
+			<tr>
+				<td>Query string</td>
+				<td>${error.requestContext.queryString}</td>
+			</tr>
+			
+			<tr>
+				<td>Request Session Id</td>
+				<td>${error.requestContext.requestSessionId}</td>
+			</tr>
+			
+			<tr>
+				<td>Context path</td>
+				<td>${error.requestContext.contextPath}</td>
+			</tr>
+			
+					<tr>
+				<td>Context name</td>
+				<td>${error.requestContext.contextType}</td>
+			</tr>
+		</table>
+
+	</div>
+	
+	<div class="tab-pane" id="variables">
+
+
+		<h3>Environment variables:</h3>
+		<table class="table table-striped">
+			<tr>
+				<th>Name</th>
+				<th>Value</th>
+			</tr>
+			<c:forEach items="${error.environmentProperties}" var="variable">
+				<tr>
+					<td>${variable.key}</td>
+					<td>${variable.value}</td>
+				</tr>
+			</c:forEach>
+		</table>
+
+		<h3>System properties:</h3>
+		<table class="table table-striped">
+			<tr>
+				<th>Name</th>
+				<th>Value</th>
+			</tr>
+			<c:forEach items="${error.systemProperties}" var="variable">
+				<tr>
+					<td>${variable.key}</td>
+					<td>${variable.value}</td>
+				</tr>
+			</c:forEach>
+		</table>
+
 	</div>
 
+	<div class="tab-pane" id="memory">
+		<h3>Heap:</h3>
+		<table class="table table-striped">
+			<tr>
+				<td>Init</td>
+				<td>${error.memoryContext.heapInit / 1024}KB</td>
+			</tr>
+			
+			<tr>
+				<td>Commited</td>
+				<td>${error.memoryContext.heapCommitted / 1024}KB</td>
+			</tr>
+			
+			<tr>
+				<td>Used</td>
+				<td>${error.memoryContext.heapUsed / 1024}KB</td>
+			</tr>
+			
+				<tr>
+				<td>Max</td>
+				<td>${error.memoryContext.heapMax / 1024}KB</td>
+			</tr>
+		</table>
+
+		<h3>Non Heap:</h3>
+		<table class="table table-striped">
+			<tr>
+				<td>Init</td>
+				<td>${error.memoryContext.nonHeapInit / 1024}KB</td>
+			</tr>
+			
+			<tr>
+				<td>Commited</td>
+				<td>${error.memoryContext.nonHeapCommitted / 1024}KB</td>
+			</tr>
+			
+			<tr>
+				<td>Used</td>
+				<td>${error.memoryContext.nonHeapUsed / 1024}KB</td>
+			</tr>
+			
+				<tr>
+				<td>Max</td>
+				<td>${error.memoryContext.nonHeapMax / 1024}KB</td>
+			</tr>
+		</table>
+
+	</div>
+</div>
 

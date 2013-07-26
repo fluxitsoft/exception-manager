@@ -8,29 +8,24 @@
 	<script>
 		var cometd;
 
-
-		
-		var addNotification = function(error) {
-
-			
-
-			var message = "<a href='<c:url value='/error?id='/>" + error.id + "'>" + error.targetExceptionClassName + "</a>";
-
-
-			$.pnotify({
-			    title: error.applicationName,
-			    text: message,
-			    type: 'error',
-			    hide: true,
-			    delay: 1500
-			});
-
-		}
-
 		$(function() {
 
 			var _connected = false;
 
+			var addNotification = function(error) {
+
+				var message = "<a href='<c:url value='/error?id='/>" + error.id
+						+ "'>" + error.targetExceptionClassName + "</a>";
+
+				$.pnotify({
+					title : error.applicationName,
+					text : message,
+					type : 'error',
+					hide : true,
+					delay : 10000
+				});
+
+			}
 			cometd = $.cometd;
 
 			cometd.configure({
@@ -52,20 +47,6 @@
 											response);
 
 									addNotification(response);
-
-									/*var id = response.id;
-									var applicationName = response.applicationName;
-									var exceptionClassName = response.targetExceptionClassName;
-									var message = response.message;
-									var date = response.time;
-
-									var url = "<c:url value='/error?id=" + id + "'/>";
-									$("#errors").prepend(
-											'<tr><td><a href="' + url +'">' + id + '</a></td><td>'
-													+ applicationName + '</td><td>' + exceptionClassName
-													+ '</td><td>' + message
-													+ '</td><td>' + date
-													+ '</td></tr>');*/
 
 								});
 
