@@ -1,7 +1,3 @@
----
-published: false
----
-
 Exception-manager [![](https://api.travis-ci.org/fluxitsoft/exception-manager.png?branch=master)](http://travis-ci.org/fluxitsoft/exception-manager) 
 =====================
 
