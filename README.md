@@ -4,6 +4,8 @@ Exception-manager [![](https://api.travis-ci.org/fluxitsoft/exception-manager.pn
 Aplicación para centralizar los errores de un conjunto de aplicaciones:
 * Permite ver con detalle los errores de manera detallados lanzados por las aplicaciones en tiempo de ejecución. Permite ver el código fuente que falla, navegar por la pila de ejecución, conocer acerca del contexto de ejecución, etc..
 * Permite recolectar información acerca de los errores de las aplicaciones y generar una base de conocimiento colaborativa.
+* 
+Desde acá podés ver algunos  [Screenshots](https://github.com/fluxitsoft/exception-manager/wiki/Screenshots)
 
 **Instalación**
 
