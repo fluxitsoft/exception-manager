@@ -2,3 +2,7 @@ language: java
 
 script:
   - "mvn clean test"
+
+notifications:
+  email:
+    - anselmo.abadia@fluxit.com.ar

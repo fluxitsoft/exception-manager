@@ -4,6 +4,8 @@ Exception-manager [![](https://api.travis-ci.org/fluxitsoft/exception-manager.pn
 Aplicación para centralizar los errores de un conjunto de aplicaciones:
 * Permite ver con detalle los errores de manera detallados lanzados por las aplicaciones en tiempo de ejecución. Permite ver el código fuente que falla, navegar por la pila de ejecución, conocer acerca del contexto de ejecución, etc..
 * Permite recolectar información acerca de los errores de las aplicaciones y generar una base de conocimiento colaborativa.
+* 
+Desde acá podés ver algunos  [Screenshots](https://github.com/fluxitsoft/exception-manager/wiki/Screenshots)
 
 **Instalación**
 
@@ -67,10 +69,5 @@ errorManager.registerError(error);
 
 **TODOs**
 
-* Buscar el código fuente por el nombre del fileName que devuelve el StackTrace.
-* Mostrar el código de error HTTP.
-* Manejear las innerClasses.
-* Eliminar la utilización de JPA utilizando para todos los casos MongoDD.
-* Arreglear el widget de highlight porque parsea mal el código java y se ve como comentario.
-* Mostrar en la UI información del contexto: request, variables de entorno, variables del sistema, información del heap, etc..
-* Etc, etc..
+https://github.com/fluxitsoft/exception-manager/issues
+
