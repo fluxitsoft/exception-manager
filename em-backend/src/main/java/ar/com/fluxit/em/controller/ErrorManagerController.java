@@ -14,23 +14,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ar.com.fluxit.em.model.Error;
 import ar.com.fluxit.em.service.ExceptionManagerService;
 
-import com.google.gson.Gson;
-
 
 @Controller
 class ErrorManagerController {
 
 	@Autowired
 	ExceptionManagerService exceptionManagerService;
-	
-	
-	private Gson gson;
-	
-	public ErrorManagerController() {
-		gson = new Gson();
-	}
-	
-
 	
 	/**
 	 * Display an error page, as defined in web.xml <code>custom-error</code>

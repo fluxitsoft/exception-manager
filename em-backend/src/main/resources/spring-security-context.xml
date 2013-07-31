@@ -10,15 +10,13 @@ http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 		<security:form-login login-page="/signin" authentication-failure-url="/signin?error=1"/>
 		<security:logout logout-url="/logout" />
 		<security:remember-me services-ref="rememberMeServices" key="remember-me-key"/>
-		<security:intercept-url pattern="/" access="permitAll" />
+		<security:intercept-url pattern="/" access="isAuthenticated()" />
 		<security:intercept-url pattern="/resources/**" access="permitAll" />
 		<security:intercept-url pattern="/signin" access="permitAll" />
-		<security:intercept-url pattern="/signup" access="permitAll" />
+		<security:intercept-url pattern="/signup" access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/default/**" access="permitAll" />
-		<security:intercept-url pattern="/sourceCode" access="permitAll" />
 		<security:intercept-url pattern="/registerError" access="permitAll" />
-		<security:intercept-url pattern="/updateExceptionDescriptor" access="permitAll" />
-		<security:intercept-url pattern="/cometd/**" access="permitAll" />
+		<security:intercept-url pattern="/cometd/**" access="isAuthenticated()" />
 		<security:intercept-url pattern="/**" access="isAuthenticated()" />
 	</security:http>
 	
