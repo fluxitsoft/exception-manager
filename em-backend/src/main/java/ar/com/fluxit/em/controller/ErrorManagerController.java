@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ar.com.fluxit.em.model.Error;
-import ar.com.fluxit.em.model.ExceptionDescriptor;
 import ar.com.fluxit.em.service.ExceptionManagerService;
 
 import com.google.gson.Gson;
@@ -32,23 +31,6 @@ class ErrorManagerController {
 	}
 	
 
-	/**
-	 * Display an error page, as defined in web.xml <code>custom-error</code>
-	 * element.
-	 */
-	@RequestMapping(method = RequestMethod.POST, value = "updateExceptionDescriptor")
-	@ResponseBody
-	public String generalError(@RequestParam String className,
-			@RequestParam String description) {
-
-		ExceptionDescriptor exceptionDescriptor = new ExceptionDescriptor();
-		exceptionDescriptor.setClassName(className);
-		exceptionDescriptor.setDescription(description);
-
-		exceptionManagerService.updateExceptionDescriptor(className, description);
-		return "";
-
-	}
 	
 	/**
 	 * Display an error page, as defined in web.xml <code>custom-error</code>
@@ -58,11 +40,8 @@ class ErrorManagerController {
 	@ResponseBody
 	public String registerError(@RequestBody ar.com.fluxit.em.model.ErrorDocument error) {
 		
-
 		exceptionManagerService.addError(error);
 		
-		
-
 		return error.getId();
 
 	}

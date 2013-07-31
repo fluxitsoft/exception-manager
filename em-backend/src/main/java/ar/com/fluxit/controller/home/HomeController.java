@@ -19,11 +19,11 @@
 package ar.com.fluxit.controller.home;
 
 import java.security.Principal;
-import java.util.logging.ErrorManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import ar.com.fluxit.em.service.ExceptionManagerService;
 
@@ -35,46 +35,9 @@ public class HomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Principal principal) {
-
-		// try{
-		// exceptionManager.simulateException();
-		// }catch (Exception e) {
-		// throw new RuntimeException(e);
-		// }
-		// return "";
-
 		return principal != null ? "homeSignedIn" : "homeNotSignedIn";
 
 	}
-
-	@RequestMapping(value = "/error1", method = RequestMethod.GET)
-	public String error1(Principal principal) {
-
-		try {
-			exceptionManager.simulateException();
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-		return "";
-
-		// return principal != null ? "homeSignedIn" : "homeNotSignedIn";
-
-	}
-	
-	@RequestMapping(value = "/error2", method = RequestMethod.GET)
-	public String error2(Principal principal) {
-
-		try {
-			exceptionManager.simulateDbException();
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-		return "";
-
-		// return principal != null ? "homeSignedIn" : "homeNotSignedIn";
-
-	}
-	
 	
 	
 }

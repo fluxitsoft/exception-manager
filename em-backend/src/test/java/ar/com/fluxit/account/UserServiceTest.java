@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import ar.com.fluxit.em.account.Account;
 import ar.com.fluxit.em.account.AccountRepository;
+import ar.com.fluxit.em.account.UserAlreadyExistsException;
 import ar.com.fluxit.em.account.UserService;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -34,7 +35,7 @@ public class UserServiceTest {
 	public ExpectedException thrown = ExpectedException.none();
 
 	@Test
-	public void shouldInitializeWithTwoDemoUsers() {
+	public void shouldInitializeWithTwoDemoUsers() throws UserAlreadyExistsException {
 		// act
 		userService.initialize();
 		// assert

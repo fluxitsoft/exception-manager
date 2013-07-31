@@ -26,7 +26,7 @@ public class SignupController {
 	}
 	
 	@RequestMapping(value = "signup", method = RequestMethod.POST)
-	public String signup(@Valid @ModelAttribute SignupForm signupForm, Errors errors, RedirectAttributes ra) {
+	public String signup(@Valid @ModelAttribute SignupForm signupForm, Errors errors, RedirectAttributes ra) throws UserAlreadyExistsException {
 		if (errors.hasErrors()) {
 			return null;
 		}

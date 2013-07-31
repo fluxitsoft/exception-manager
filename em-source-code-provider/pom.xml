@@ -2,14 +2,14 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ar.com.fluxit</groupId>
-	<artifactId>exceptionManager-sourceCodeProvider</artifactId>
+	<artifactId>em-sourceCodeProvider</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
 	<name>Exception Manager - SourceCode Provider</name>
 
 	<parent>
 		<groupId>ar.com.fluxit</groupId>
-		<artifactId>exceptionManager</artifactId>
+		<artifactId>em</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 

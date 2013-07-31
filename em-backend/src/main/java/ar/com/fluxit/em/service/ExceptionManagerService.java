@@ -10,13 +10,11 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import ar.com.fluxit.em.controller.ErrorDetail;
 import ar.com.fluxit.em.model.Application;
 import ar.com.fluxit.em.model.Error;
 import ar.com.fluxit.em.model.ErrorDocument;
-import ar.com.fluxit.em.model.ExceptionDescriptor;
 import ar.com.fluxit.em.model.MemoryContext;
 
 @Service
@@ -41,35 +39,11 @@ public class ExceptionManagerService {
 	}
 
 
-	@Transactional
-	public void updateExceptionDescriptor(String className, String description) {
-
-		ExceptionDescriptor exceptionDescriptor = exceptionDescriptorRepository
-				.getExceptionDescriptor(className);
-		if (exceptionDescriptor == null) {
-			exceptionDescriptor = new ExceptionDescriptor();
-			exceptionDescriptor.setClassName(className);
-		}
-
-		exceptionDescriptor.setDescription(description);
-
-		exceptionDescriptorRepository.update(exceptionDescriptor);
-
-	}
-
 	public int simulateException() {
 		return 1 / 0;
 
 	}
 
-	@Transactional
-	public void simulateDbException() {
-
-		ExceptionDescriptor exceptionDescriptor = new ExceptionDescriptor();
-		exceptionDescriptor.setClassName(ArithmeticException.class.getName());
-		exceptionDescriptorRepository.update(exceptionDescriptor);
-
-	}
 
 	public Error getError(String errorId) {
 		ErrorDocument errorDocument = mongoOperations.findById(errorId,
