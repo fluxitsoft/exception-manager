@@ -19,9 +19,7 @@
 
 package ar.com.fluxit.em.controller;
 
-import lombok.Data;
 
-@Data
 public class ErrorDetail {
 
 	private String id;

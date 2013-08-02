@@ -1,6 +1,5 @@
 package ar.com.fluxit.em.account;
 
-import lombok.Data;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.data.annotation.Id;
@@ -13,7 +12,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 // @NamedQuery(name = Account.FIND_BY_EMAIL, query =
 // "select a from Account a where a.email = :email")
 @Document
-@Data
 public class Account implements java.io.Serializable {
 
 	public static final String FIND_BY_EMAIL = "Account.findByEmail";
