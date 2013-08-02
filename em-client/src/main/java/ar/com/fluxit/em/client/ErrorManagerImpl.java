@@ -18,8 +18,6 @@ import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-
-import lombok.Data;
 import ar.com.fluxit.em.model.Error;
 import ar.com.fluxit.em.model.ExceptionDetail;
 import ar.com.fluxit.em.model.MemoryContext;
@@ -28,7 +26,7 @@ import ar.com.fluxit.em.model.RequestContext;
 import com.google.common.base.Throwables;
 import com.google.gson.Gson;
 
-@Data
+
 public class ErrorManagerImpl implements ErrorManager {
 
 	private String applicationKey;
