@@ -39,12 +39,6 @@ public class ExceptionManagerService {
 	}
 
 
-	public int simulateException() {
-		return 1 / 0;
-
-	}
-
-
 	public Error getError(String errorId) {
 		ErrorDocument errorDocument = mongoOperations.findById(errorId,
 				ErrorDocument.class, "errors");
@@ -75,7 +69,6 @@ public class ExceptionManagerService {
 		}
 		
 		return errorDetails;
-
 	}
 
 
