@@ -99,4 +99,36 @@ public class EclipseSourceCodeProvider implements SourceCodeProvider {
 
 	}
 
+	public String getM2_repo() {
+		return m2_repo;
+	}
+
+	public void setM2_repo(String m2_repo) {
+		this.m2_repo = m2_repo;
+	}
+
+	public String getProjectFolder() {
+		return projectFolder;
+	}
+
+	public void setProjectFolder(String projectFolder) {
+		this.projectFolder = projectFolder;
+	}
+
+	public List<String> getFileProviders() {
+		return fileProviders;
+	}
+
+	public void setFileProviders(List<String> fileProviders) {
+		this.fileProviders = fileProviders;
+	}
+
+	public FileSystemManager getFsManager() {
+		return fsManager;
+	}
+
+	public void setFsManager(FileSystemManager fsManager) {
+		this.fsManager = fsManager;
+	}
+
 }
