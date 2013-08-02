@@ -19,9 +19,7 @@
 
 package ar.com.fluxit.em.model;
 
-import lombok.Data;
 
-@Data
 public class MemoryContext {
 
 	private long heapInit;

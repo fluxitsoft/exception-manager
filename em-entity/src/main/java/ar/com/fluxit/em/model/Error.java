@@ -23,9 +23,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import lombok.Data;
 
-@Data
 public class Error {
 	
 	

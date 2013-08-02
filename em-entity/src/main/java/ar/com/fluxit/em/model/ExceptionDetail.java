@@ -21,9 +21,6 @@ package ar.com.fluxit.em.model;
 
 import java.util.List;
 
-import lombok.Data;
-
-@Data
 public class ExceptionDetail {
 
 	private String className;
