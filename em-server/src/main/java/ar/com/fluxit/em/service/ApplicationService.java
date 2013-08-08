@@ -15,9 +15,6 @@ import ar.com.fluxit.em.model.Application;
 public class ApplicationService {
 
 	@Autowired
-	ExceptionDescriptorRepository exceptionDescriptorRepository;
-
-	@Autowired
 	MongoOperations mongoOperations;
 
 	public Application add(Application application) {

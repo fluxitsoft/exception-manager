@@ -18,25 +18,28 @@ import ar.com.fluxit.em.model.ErrorDocument;
 import ar.com.fluxit.em.model.MemoryContext;
 
 @Service
-public class ExceptionManagerService {
-
-	@Autowired
-	ExceptionDescriptorRepository exceptionDescriptorRepository;
+public class ErrorService {
 
 	@Autowired
 	ApplicationService applicationService;
+	
+	@Autowired
+	ErrorIndexService errorIndexService;
 
 	@Autowired
 	MongoOperations mongoOperations;
 
 	public String addError(ar.com.fluxit.em.model.ErrorDocument error) {
 		error.setTime(new Date());
+		
 		mongoOperations.insert(error, "errors");
+		errorIndexService.add(error);
 		
 		CometService.instance.publish("admin", toErrorDetail(error));
 		
 		return error.getId();
 	}
+	
 
 
 	public Error getError(String errorId) {

@@ -9,9 +9,32 @@ Desde acá podés ver algunos  [Screenshots](https://github.com/fluxitsoft/excep
 
 **Instalación**
 
-Instalar en la IDE: http://projectlombok.org/download.html
-Instalar MongoDB - apt-get install mongodb
+* Instalar MongoDB. 
 
+Se instala en un ubuntu a través de apt-get install mongodb.
+
+Para usar una url diferente, se puede redefinir usando la siguiente System property: 
+
+```
+-Dmongo.url=mongodb://localhost:27017/test
+```
+
+* Instalar Solr 4.1.0.
+
+Por el momento la integración con Solr es usando un servidor embebido. 
+
+Hay que agregar al schema por defecto los siguientes fields:
+
+```xml
+  <field name="exceptionClassName" type="text_general" indexed="true" stored="true"/>
+  <field name="exceptionMessage" type="text_general" indexed="true" stored="true"/>
+```
+
+Hay que especificar la ubicación de la home de Solr:
+
+```
+-Dsolr.solr.home=/home/anselmo/dev/apache-solr-4.1.0/example/solr
+```
 
 **Utilización**
 
@@ -23,13 +46,13 @@ Instalar MongoDB - apt-get install mongodb
 ```xml
 		<dependency>
 			<groupId>ar.com.fluxit</groupId>
-			<artifactId>exceptionManager-client</artifactId>
+			<artifactId>em-client</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>ar.com.fluxit</groupId>
-			<artifactId>exceptionManager-sourceCodeProvider</artifactId>
+			<artifactId>em-sourceCodeProvider</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 ```
@@ -37,7 +60,7 @@ Instalar MongoDB - apt-get install mongodb
 
 ```java
 ErrorManager errorManager = 
-	new ErrorManagerImpl(applicationId, "http://localhost:8080/exceptionManager-backend/registerError");
+	new ErrorManagerImpl(applicationId, "http://localhost:8080/em-server/registerError");
 
 ...
 

@@ -10,7 +10,7 @@
    	<modules>
         	<module>em-entity</module>
         	<module>em-client</module>
-        	<module>em-backend</module>
+        	<module>em-server</module>
         	<module>em-source-code-provider</module>
 	</modules>
 

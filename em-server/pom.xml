@@ -2,10 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ar.com.fluxit</groupId>
-	<artifactId>em-backend</artifactId>
+	<artifactId>em-server</artifactId>
 	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>Exception Manager - Backend</name>
+	<name>Exception Manager - Server</name>
 
 	<parent>
 		<groupId>ar.com.fluxit</groupId>
@@ -67,37 +67,7 @@
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>${org.springframework.security-version}</version>
 		</dependency>
-		<!-- Persistence -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.springframework</groupId> -->
-		<!-- <artifactId>spring-jdbc</artifactId> -->
-		<!-- <version>${org.springframework-version}</version> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.springframework</groupId> -->
-		<!-- <artifactId>spring-tx</artifactId> -->
-		<!-- <version>${org.springframework-version}</version> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.springframework</groupId> -->
-		<!-- <artifactId>spring-orm</artifactId> -->
-		<!-- <version>${org.springframework-version}</version> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.hibernate</groupId> -->
-		<!-- <artifactId>hibernate-entitymanager</artifactId> -->
-		<!-- <version>3.6.8.Final</version> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>hsqldb</groupId> -->
-		<!-- <artifactId>hsqldb</artifactId> -->
-		<!-- <version>1.8.0.10</version> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.springframework.data</groupId> -->
-		<!-- <artifactId>spring-data-jpa</artifactId> -->
-		<!-- <version>1.2.0.RELEASE</version> -->
-		<!-- </dependency> -->
+
 		<!-- javax.validation (JSR-303) -->
 		<dependency>
 			<groupId>javax.validation</groupId>
@@ -241,6 +211,28 @@
 			<version>2.4.0</version>
 		</dependency>
 
+
+		<!-- SOLR -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-solr</artifactId>
+			<version>1.0.0.RC1</version>
+		</dependency>
+
+
+		<!-- Required by embedded solr server -->
+		<dependency>
+			<groupId>org.apache.solr</groupId>
+			<artifactId>solr-core</artifactId>
+			<version>4.1.0</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>slf4j-jdk14</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
@@ -265,7 +257,7 @@
 					<wtpapplicationxml>true</wtpapplicationxml>
 					<wtpversion>2.0</wtpversion>
 				</configuration>
-			</plugin>			
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>

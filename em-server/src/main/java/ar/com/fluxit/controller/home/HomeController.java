@@ -25,13 +25,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import ar.com.fluxit.em.service.ExceptionManagerService;
+import ar.com.fluxit.em.service.ErrorService;
 
 @Controller
 public class HomeController {
 
 	@Autowired
-	ExceptionManagerService exceptionManager;
+	ErrorService exceptionManager;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Principal principal) {

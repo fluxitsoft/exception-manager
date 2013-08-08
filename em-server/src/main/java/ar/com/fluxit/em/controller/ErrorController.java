@@ -12,14 +12,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ar.com.fluxit.em.model.Error;
-import ar.com.fluxit.em.service.ExceptionManagerService;
+import ar.com.fluxit.em.service.ErrorIndexService;
+import ar.com.fluxit.em.service.ErrorService;
+import ar.com.fluxit.em.solr.document.ErrorDocument;
 
 
 @Controller
-class ErrorManagerController {
+class ErrorController {
 
 	@Autowired
-	ExceptionManagerService exceptionManagerService;
+	ErrorService errorService;
+	
+	@Autowired
+	ErrorIndexService errorIndexService;
 	
 	/**
 	 * Display an error page, as defined in web.xml <code>custom-error</code>
@@ -29,16 +34,25 @@ class ErrorManagerController {
 	@ResponseBody
 	public String registerError(@RequestBody ar.com.fluxit.em.model.ErrorDocument error) {
 		
-		exceptionManagerService.addError(error);
+		errorService.addError(error);
 		
 		return error.getId();
 
 	}
 	
+
+	@RequestMapping(method = RequestMethod.GET, value = "error/find")
+	@ResponseBody
+	public List<ErrorDocument> registerError(@RequestParam("q") String searchTerm) {
+		
+		return errorIndexService.find(searchTerm);
+		
+	}
+	
 	@RequestMapping(value = "error")
 	public String error(@RequestParam String id, Model model) {
 
-		Error error = exceptionManagerService.getError(id);
+		Error error = errorService.getError(id);
 		
 		model.addAttribute("error",error);
 		
@@ -49,7 +63,7 @@ class ErrorManagerController {
 	@RequestMapping(value = "errors")
 	public String errors(Model model) {
 
-		List<ErrorDetail> errors = exceptionManagerService.getErrorDetails();
+		List<ErrorDetail> errors = errorService.getErrorDetails();
 		
 		
 		model.addAttribute("errors",errors);
