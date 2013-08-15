@@ -61,11 +61,9 @@ class ErrorController {
 	
 	
 	@RequestMapping(value = "errors")
-	public String errors(Model model) {
+	public String errors(Model model, @RequestParam(required=false) String applicationKey) {
 
-		List<ErrorDetail> errors = errorService.getErrorDetails();
-		
-		
+		List<ErrorDetail> errors = errorService.getErrorDetails(applicationKey);
 		model.addAttribute("errors",errors);
 		
 		return "errors";

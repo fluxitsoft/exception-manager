@@ -25,6 +25,7 @@ public class ErrorDetail {
 	private String id;
 	private String applicationName;
 	private String targetExceptionClassName;
+	private String targetExceptionShortClassName;
 	private String message;
 	private String time;
 	public String getId() {
@@ -42,9 +43,11 @@ public class ErrorDetail {
 	public String getTargetExceptionClassName() {
 		return targetExceptionClassName;
 	}
+	
 	public void setTargetExceptionClassName(String targetExceptionClassName) {
 		this.targetExceptionClassName = targetExceptionClassName;
 	}
+	
 	public String getMessage() {
 		return message;
 	}
@@ -57,6 +60,16 @@ public class ErrorDetail {
 	public void setTime(String time) {
 		this.time = time;
 	}
+	public String getTargetExceptionShortClassName() {
+		return targetExceptionShortClassName;
+	}
+	
+	public void setTargetExceptionShortClassName(
+			String targetExceptionShortClassName) {
+		this.targetExceptionShortClassName = targetExceptionShortClassName;
+	}
+	
+	
 
 
 }

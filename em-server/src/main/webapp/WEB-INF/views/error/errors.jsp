@@ -14,7 +14,7 @@ $(document).ready(function(){
 
 		var id = params.id;
 		var applicationName = params.applicationName;
-		var exceptionClassName = params.targetExceptionClassName;
+		var exceptionClassName = params.targetExceptionShortClassName;
 		var message = params.message;
 		var date = params.time;
 
@@ -30,16 +30,16 @@ $(document).ready(function(){
 
 </script>
 
-<table class="table" id="errors">
+<table class="table  table-striped" id="errors">
 
     <c:forEach items="${errors}" var="error" varStatus="status">
-        <tr>
         
-            <td><a href="<c:url value='/error?id=${error.id}'/>">${error.id}</a></td>
+        <tr>
+            <td><a class="btn btn-mini" href="<c:url value='/error?id=${error.id}'/>"><i class="icon-eye-open"></i></a></td>
             <td>${error.applicationName}</td>
-            <td>${error.targetExceptionClassName}</td>
+            <td>${error.targetExceptionShortClassName}</td>
             <td>${error.message}</td>
-            <td>${error.time}</td>
+            <td width="250px">${error.time}</td>
             
         </tr>
     </c:forEach>

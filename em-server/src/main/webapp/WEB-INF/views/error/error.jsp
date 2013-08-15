@@ -5,6 +5,7 @@
 	prefix="tilesx"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
 
 
@@ -17,6 +18,16 @@
 	media="screen" />
 
 <script type="text/javascript"
+	src="<c:url value='/resources/js/jquery.snippet.min.js'/>"></script>
+
+<link type="text/css" rel="stylesheet"
+	href="<c:url value='/resources/css/jquery.snippet.min.css'/>" />
+
+
+<!-- 
+
+
+<script type="text/javascript"
 	src="<c:url value='/resources/js/sh/shCore.js'/>"></script>
 
 <script type="text/javascript"
@@ -27,14 +38,20 @@
 	href="<c:url value='/resources/css/sh/shCore.css'/>" />
 <link type="text/css" rel="stylesheet"
 	href="<c:url value='/resources/css/sh/shCoreEclipse.css'/>" />
-
 <script type="text/javascript"
 	src="<c:url value="/resources/js/jquery.scrollTo-1.4.3.1-min.js" />"></script>
+-->
 
 <script type="text/javascript"
-	src="<c:url value="/resources/js/generalError.js" />"></script>
+	src="<c:url value="/resources/js/error.js" />"></script>
 </head>
 
+
+<style>
+.container {
+	width: 95%;
+}
+</style>
 
 <a id="toggle-update" href="#" class="toggles"><i
 	class="icon-chevron-down"></i></a>
@@ -44,6 +61,7 @@
 	<li><a href="#request">Request context</a></li>
 	<li><a href="#variables">Variables context</a></li>
 	<li><a href="#memory">Memory context</a></li>
+	<li><a href="#others">Others</a></li>
 </ul>
 
 
@@ -86,7 +104,7 @@
 
 				</div>
 				<div id="content" class="span6" style="overflow: none;">
-					<div id="sourceCode"></div>
+					<div id="sourceCode" style="width: 100%;"></div>
 					<a id="toggle-stack" href="#" class="toggles"><i
 						class="icon-chevron-left"></i></a>
 				</div>
@@ -112,7 +130,7 @@
 				</tr>
 			</c:forEach>
 		</table>
-		
+
 		<h3>Parameters:</h3>
 		<table class="table table-striped">
 			<tr>
@@ -127,37 +145,58 @@
 				</tr>
 			</c:forEach>
 		</table>
-		
+
+		<h3>Cookies:</h3>
+		<table class="table table-striped">
+			<tr>
+				<th>Name</th>
+				<th>Value</th>
+				<th>Domain</th>
+				<th>Path</th>
+				<th>Secure</th>
+
+			</tr>
+			<c:forEach items="${error.requestContext.cookies}" var="cookie">
+				<tr>
+					<td>${cookie.key}</td>
+					<td>${cookie.value}</td>
+					<td>${cookie.domain}</td>
+					<td>${cookie.path}</td>
+					<td>${cookie.secure}</td>
+				</tr>
+			</c:forEach>
+		</table>
+
 		<h3>Others</h3>
 		<table class="table table-striped">
 			<tr>
 				<td>Method</td>
 				<td>${error.requestContext.method}</td>
 			</tr>
-			
+
 			<tr>
 				<td>Query string</td>
 				<td>${error.requestContext.queryString}</td>
 			</tr>
-			
+
 			<tr>
 				<td>Request Session Id</td>
 				<td>${error.requestContext.requestSessionId}</td>
 			</tr>
-			
+
 			<tr>
 				<td>Context path</td>
 				<td>${error.requestContext.contextPath}</td>
 			</tr>
-			
-					<tr>
+
+			<tr>
 				<td>Context name</td>
 				<td>${error.requestContext.contextType}</td>
 			</tr>
 		</table>
 
 	</div>
-	
+
 	<div class="tab-pane" id="variables">
 
 
@@ -196,22 +235,26 @@
 		<table class="table table-striped">
 			<tr>
 				<td>Init</td>
-				<td>${error.memoryContext.heapInit / 1024}KB</td>
+				<td><fmt:formatNumber maxFractionDigits="3"
+						value="${error.memoryContext.heapInit / 1024}"></fmt:formatNumber>KB</td>
 			</tr>
-			
+
 			<tr>
 				<td>Commited</td>
-				<td>${error.memoryContext.heapCommitted / 1024}KB</td>
+				<td><fmt:formatNumber maxFractionDigits="3"
+						value="${error.memoryContext.heapCommitted / 1024}"></fmt:formatNumber>KB</td>
 			</tr>
-			
+
 			<tr>
 				<td>Used</td>
-				<td>${error.memoryContext.heapUsed / 1024}KB</td>
+				<td><fmt:formatNumber maxFractionDigits="3"
+						value="${error.memoryContext.heapUsed / 1024}"></fmt:formatNumber>KB</td>
 			</tr>
-			
-				<tr>
+
+			<tr>
 				<td>Max</td>
-				<td>${error.memoryContext.heapMax / 1024}KB</td>
+				<td><fmt:formatNumber maxFractionDigits="3"
+						value="${error.memoryContext.heapMax / 1024}"></fmt:formatNumber>KB</td>
 			</tr>
 		</table>
 
@@ -219,25 +262,49 @@
 		<table class="table table-striped">
 			<tr>
 				<td>Init</td>
-				<td>${error.memoryContext.nonHeapInit / 1024}KB</td>
+				<td><fmt:formatNumber maxFractionDigits="3"
+						value="${error.memoryContext.nonHeapInit / 1024}"></fmt:formatNumber>KB</td>
 			</tr>
-			
+
 			<tr>
 				<td>Commited</td>
-				<td>${error.memoryContext.nonHeapCommitted / 1024}KB</td>
+				<td><fmt:formatNumber maxFractionDigits="3"
+						value="${error.memoryContext.nonHeapCommitted / 1024}"></fmt:formatNumber>KB</td>
 			</tr>
-			
+
 			<tr>
 				<td>Used</td>
-				<td>${error.memoryContext.nonHeapUsed / 1024}KB</td>
+				<td><fmt:formatNumber maxFractionDigits="3"
+						value="${error.memoryContext.nonHeapUsed / 1024}"></fmt:formatNumber>KB</td>
 			</tr>
-			
-				<tr>
+
+			<tr>
 				<td>Max</td>
-				<td>${error.memoryContext.nonHeapMax / 1024}KB</td>
+				<td><fmt:formatNumber maxFractionDigits="3"
+						value="${error.memoryContext.nonHeapMax / 1024}"></fmt:formatNumber>KB</td>
 			</tr>
 		</table>
 
 	</div>
+	
+	
+	
+	<div class="tab-pane" id="others">
+		<table class="table table-striped">
+			<tr>
+				<td>Time</td>
+				<td>${error.time}</td>
+			</tr>
+
+			<tr>
+				<td>Source code provider</td>
+				<td>${error.sourceCodeUrlProvider}</td>
+			</tr>
+
+		</table>
+
+	</div>
+	
+	
 </div>
 

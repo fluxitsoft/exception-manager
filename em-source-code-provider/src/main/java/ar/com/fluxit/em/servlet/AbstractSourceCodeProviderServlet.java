@@ -8,7 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public abstract class  AbstractSourceCodeProviderServlet extends HttpServlet {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public abstract class AbstractSourceCodeProviderServlet extends HttpServlet {
 
 	/**
 	 * 
@@ -20,20 +23,29 @@ public abstract class  AbstractSourceCodeProviderServlet extends HttpServlet {
 
 		String className = request.getParameter("className");
 		String fileName = request.getParameter("fileName");
-		
-		response.addHeader("Access-Control-Allow-Origin", "*");
-		
-		
-		String sourceCode = this.getSourceCode(className, fileName);
+		String callback = request.getParameter("callback");
+
+		response.setContentType("application/json");
+		response.setHeader("Cache-Control", "no-store");
+
+		JSONObject jsonObject = new JSONObject();
+		try {
+			jsonObject.put("sourceCode",
+					this.getSourceCode(className, fileName));
+		} catch (JSONException e) {
+			throw new ServletException(e);
+		}
+
+		String sourceCodeResponse = jsonObject.toString();
+		if (callback != null) {
+			sourceCodeResponse = callback + "(" + sourceCodeResponse + ");";
+		}
 
 		PrintWriter out = response.getWriter();
-		out.append(sourceCode);
+		out.append(sourceCodeResponse);
 		out.close();
 	}
 
 	protected abstract String getSourceCode(String className, String fileName);
-	
-	
-	
 
 }

@@ -1,4 +1,6 @@
 package ar.com.fluxit.em.config;
+import javax.annotation.Resource;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -7,8 +9,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.data.solr.core.SolrTemplate;
 import org.springframework.data.solr.repository.config.EnableSolrRepositories;
 import org.springframework.data.solr.server.support.HttpSolrServerFactoryBean;
-
-import javax.annotation.Resource;
 
 @Configuration
 @EnableSolrRepositories("net.petrikainulainen.spring.datasolr.todo.repository.solr")

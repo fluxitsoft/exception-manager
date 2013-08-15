@@ -1,6 +1,7 @@
 package ar.com.fluxit.em.controller.signup;
 
-import org.hibernate.validator.constraints.*;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 
 import ar.com.fluxit.em.account.Account;
 

@@ -18,6 +18,7 @@ import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+
 import ar.com.fluxit.em.model.Error;
 import ar.com.fluxit.em.model.ExceptionDetail;
 import ar.com.fluxit.em.model.MemoryContext;
@@ -25,7 +26,6 @@ import ar.com.fluxit.em.model.RequestContext;
 
 import com.google.common.base.Throwables;
 import com.google.gson.Gson;
-
 
 public class ErrorManagerImpl implements ErrorManager {
 
@@ -53,7 +53,7 @@ public class ErrorManagerImpl implements ErrorManager {
 		error.setApplicationKey(applicationKey);
 
 		this.fillRequestContext(request, error);
-		
+
 		this.fillMemoryUsage(error);
 
 		error.setEnvironmentProperties(System.getenv());
@@ -106,12 +106,11 @@ public class ErrorManagerImpl implements ErrorManager {
 			requestContext.setQueryString(request.getQueryString());
 			requestContext.setMethod(request.getMethod());
 			requestContext.setParameters(request.getParameterMap());
-			
+
 			requestContext.setContextPath(request.getContextPath());
 			requestContext.setRequestSessionId(request.getRequestedSessionId());
 			requestContext.setMethod(request.getMethod());
 			requestContext.setContextType(request.getContentType());
-			
 
 			Enumeration<String> enumeration = request.getHeaderNames();
 
@@ -120,13 +119,28 @@ public class ErrorManagerImpl implements ErrorManager {
 				String headerValue = request.getHeader(headerName);
 				requestContext.getHeaders().put(headerName, headerValue);
 			}
-			
-			
-//			for (Cookie cookie : request.getCookies()) {
-//				requestContext.getCookies().add(cookie);
-//			}
+			if (request.getCookies() != null) {
+				for (Cookie httpCookie : request.getCookies()) {
+					ar.com.fluxit.em.model.Cookie cookie = buildModelCookie(httpCookie);
+					requestContext.getCookies().add(cookie);
+				}
+			}
 			error.setRequestContext(requestContext);
 		}
+	}
+
+	private ar.com.fluxit.em.model.Cookie buildModelCookie(Cookie httpCookie) {
+
+		ar.com.fluxit.em.model.Cookie cookie = new ar.com.fluxit.em.model.Cookie();
+		cookie.setComment(httpCookie.getComment());
+		cookie.setDomain(httpCookie.getDomain());
+		cookie.setName(httpCookie.getName());
+		cookie.setPath(httpCookie.getPath());
+		cookie.setSecure(httpCookie.getSecure());
+		cookie.setValue(httpCookie.getValue());
+		cookie.setMaxAge(httpCookie.getMaxAge());
+
+		return cookie;
 	}
 
 	private void fillMemoryUsage(Error error) {
@@ -134,20 +148,18 @@ public class ErrorManagerImpl implements ErrorManager {
 		MemoryMXBean memBean = ManagementFactory.getMemoryMXBean();
 		MemoryUsage heap = memBean.getHeapMemoryUsage();
 		MemoryUsage nonHeap = memBean.getNonHeapMemoryUsage();
-		
+
 		MemoryContext memoryContext = new MemoryContext();
 		memoryContext.setHeapInit(heap.getInit());
 		memoryContext.setHeapCommitted(heap.getCommitted());
 		memoryContext.setHeapMax(heap.getMax());
 		memoryContext.setHeapUsed(heap.getUsed());
-		
-		
+
 		memoryContext.setNonHeapInit(nonHeap.getInit());
 		memoryContext.setNonHeapCommitted(nonHeap.getCommitted());
 		memoryContext.setNonHeapMax(nonHeap.getMax());
 		memoryContext.setNonHeapUsed(nonHeap.getUsed());
-		
-		
+
 		error.setMemoryContext(memoryContext);
 
 	}
@@ -161,10 +173,20 @@ public class ErrorManagerImpl implements ErrorManager {
 
 			exceptionDetail.setClassName(throwableCause.getClass().getName());
 
-			exceptionDetail.setMessage(throwableCause.getMessage());
+			String message = throwableCause.getMessage();
+			if ((message != null) && (message.length() > 1000)) {
+				message = message.substring(0, 1000) + " ...";
+			}
 
-			exceptionDetail.setStackTraceElements(Arrays.asList(throwableCause
-					.getStackTrace()));
+			exceptionDetail.setMessage(message);
+
+			List<StackTraceElement> stackTraceElements = Arrays
+					.asList(throwableCause.getStackTrace());
+			if (stackTraceElements.size() > 30) {
+				stackTraceElements = stackTraceElements.subList(0, 30);
+			}
+
+			exceptionDetail.setStackTraceElements(stackTraceElements);
 			result.add(0, exceptionDetail);
 		}
 		return result;

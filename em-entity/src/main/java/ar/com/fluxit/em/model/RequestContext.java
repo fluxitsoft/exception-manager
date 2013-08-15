@@ -33,7 +33,7 @@ public class RequestContext {
 
 	private Map<String, String> headers = new HashMap<>();
 
-//	private List<Cookie> cookies;
+	private List<Cookie> cookies;
 
 	private String method;
 
@@ -98,6 +98,16 @@ public class RequestContext {
 	public void setContextPath(String contextPath) {
 		this.contextPath = contextPath;
 	}
+
+	public List<Cookie> getCookies() {
+		return cookies;
+	}
+
+	public void setCookies(List<Cookie> cookies) {
+		this.cookies = cookies;
+	}
+	
+	
 	
 
 

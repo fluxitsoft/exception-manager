@@ -5,45 +5,21 @@ $(document).ready(function() {
 	layoutTabs();
 	layoutStackTrace();
 	initialSelection();
-	updateExceptionDescriptor();
 
 });
 
+layoutTabs = function() {
 
-layoutTabs = function(){
-	
 	$('#errorTab a').click(function(e) {
 		e.preventDefault();
 		$(this).tab('show');
 	});
 }
 
-updateExceptionDescriptor = function() {
-
-//	$(".exceptionDescriptor-update").click(function() {
-//
-//		$.ajax({
-//			type : "POST",
-//			url : contextUrl + "updateExceptionDescriptor",
-//			data : {
-//				id : $(this).parent().find("#id").val(),
-//				description : $(this).parent().find("#description").val(),
-//				className : $(this).parent().find("#className").val()
-//
-//			},
-//			success : function(data) {
-//			}
-//
-//		});
-//
-//	});
-
-}
-
 initialSelection = function() {
 	$(".exception-detail:first").trigger("click");
 	$(".stackTraceElement:first").trigger("click");
-//	$('a.toggles').trigger("click");
+	// $('a.toggles').trigger("click");
 }
 
 layoutStackTrace = function() {
@@ -80,7 +56,7 @@ changeException = function() {
 				$("[id^=exceptionDescriptorContainer-]").hide();
 				$("[id^=exceptionMessage-]").hide();
 				$("#exceptionMessage-" + index).show();
-//				$("#exceptionDescriptorContainer-" + index).show();
+				// $("#exceptionDescriptorContainer-" + index).show();
 				$("[id^=stacktrace-]").hide();
 				$("#stacktrace-" + index).show();
 				$("#stacktrace-" + index).find(".stackTraceElement:first")
@@ -100,43 +76,65 @@ retrieveSourceCode = function() {
 						$(this).addClass("label-info");
 						$
 								.ajax({
-									type : "GET",
-									url : applicationSourceCodeUrl,
-									data : {
-										className : $(this).attr('classname'),
-										fileName : "null"
 
-									},
+									url : applicationSourceCodeUrl
+											+ "?className="
+											+ $(this).attr('classname')
+											+ "&callback=?",
+									async : false,
+									contentType : "application/json",
+									dataType : 'jsonp',
+
 									success : function(data) {
 										$("#sourceCode").html("");
-										$("#sourceCode").append($(".stackTraceElement.label-info").clone());
+										
 										$("#sourceCode")
 												.append(
-														"<pre id='preSourceCode' style='height: 500px;' class='brush: java; highlight: ["
-																+ lineNumber
-																+ "];' ></pre>");
-
-										for ( var int = 0; int < 30; int++) {
-											data += "\n";
-										}
-										data += "."
-										$("#preSourceCode").text(data);
-
-										SyntaxHighlighter.highlight();
-
-										$(".syntaxhighlighter").height($(window).height() - 100);
+														"<pre id='preSourceCode'></pre>");
 										
-										$(".syntaxhighlighter").animate(
-												{
-													scrollTop : $(
-															".highlighted")
-															.offset().top - 241
-												}, 0);
+										$("#sourceCode")
+										.prepend(
+												$(
+														".stackTraceElement.label-info")
+														.clone());
+
+										// for ( var int = 0; int < 30; int++) {
+										// data += "\n";
+										// }
+										// data += "."
+										$("#preSourceCode").text(
+												data.sourceCode);
+
+										// SyntaxHighlighter.highlight();
+
+										// $(".syntaxhighlighter").height($(window).height()
+										// - 100);
+
+										$("#preSourceCode").snippet("java", {
+											style : "ide-eclipse",
+											boxColor : "#5F9EA0",
+											boxFill : "#5F9EA0",
+											box : "" + lineNumber
+										});
+
+										$("#preSourceCode").css("height",
+												"500px");
+										$("#preSourceCode").css("margin-top",
+										"10px");
+
+										$("#preSourceCode")
+												.animate(
+														{
+															scrollTop : $($("#preSourceCode > ol > li")[lineNumber - 1])
+																	.offset().top - 300
+														}, 0);
 									},
-									error: function(e){
-										console.log("Source code provider error: " + e)
+									error : function(e) {
+										console
+												.log("Source code provider error: "
+														+ e)
 									}
-									
+
 								});
 
 					});

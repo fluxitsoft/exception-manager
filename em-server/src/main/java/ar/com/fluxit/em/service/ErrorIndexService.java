@@ -12,12 +12,12 @@ import ar.com.fluxit.em.solr.repository.ErrorDocumentRepository;
 @Service
 public class ErrorIndexService {
 
-	@Autowired
+//	@Autowired
 	private ErrorDocumentRepository repository;
 
 	public void add(ar.com.fluxit.em.model.ErrorDocument error) {
-		ErrorDocument document = new ErrorDocument(error);
-		repository.save(document);
+//		ErrorDocument document = new ErrorDocument(error);
+//		repository.save(document);
 
 	}
 
@@ -27,8 +27,7 @@ public class ErrorIndexService {
 	}
 
 	public List<ErrorDocument> find(String searchTerm) {
-		return repository.findByTerm(searchTerm, new Sort(
-				"exceptionClassName"));
+		return repository.search(searchTerm);
 
 	}
 }

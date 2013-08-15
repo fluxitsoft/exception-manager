@@ -10,8 +10,9 @@
 <head>
 	<title>Exception Manager</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	
-	<script src="http://code.jquery.com/jquery-latest.js"></script>
+
+	<script src="<c:url value="/resources/js/jquery-1.8.3.min.js" />"></script>
+
     <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
     <script src="<c:url value="/resources/js/cometd.js" />"></script>
     <script src="<c:url value="/resources/js/jquery.cometd.js" />"></script>

@@ -43,7 +43,7 @@ public final class CometService {
 	
 	public void publish(String user, Object value){
 		
-		ServerChannel clientChannel = bayeux.getChannel("/inbox/" + user);
+		ServerChannel clientChannel = bayeux.getChannel("/inbox");
 		
 		Gson gson = new Gson();
 		clientChannel.publish(null, gson.toJson(value) , null);
