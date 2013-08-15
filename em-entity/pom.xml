@@ -4,13 +4,13 @@
 	<groupId>ar.com.fluxit</groupId>
 	<artifactId>em-entity</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>Exception Manager - Entity</name>
 
 	<parent>
 		<groupId>ar.com.fluxit</groupId>
 		<artifactId>em</artifactId>
-		<version>1.0-SNAPSHOT</version>
+		<version>1.0.0</version>
 	</parent>
 
 	<properties>

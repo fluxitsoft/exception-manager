@@ -47,13 +47,13 @@ Hay que especificar la ubicación de la home de Solr:
 		<dependency>
 			<groupId>ar.com.fluxit</groupId>
 			<artifactId>em-client</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>1.0.0</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>ar.com.fluxit</groupId>
-			<artifactId>em-sourceCodeProvider</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<artifactId>em-source-code-provider</artifactId>
+			<version>1.0.0</version>
 		</dependency>
 ```
 * Agregar en algún punto de la aplicación que usted considera clave para detectar errores el registro de la excepción producida.
