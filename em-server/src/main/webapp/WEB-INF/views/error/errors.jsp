@@ -20,7 +20,7 @@ $(document).ready(function(){
 
 		var url = "<c:url value='/error?id=" + id + "'/>";
 		$("#errors").prepend(
-				'<tr><td><a href="' + url +'">' + id + '</a></td><td>'
+				'<tr><td><a class="btn btn-mini" href="' + url +'"><i class="icon-eye-open"></i></a></td><td>'
 						+ applicationName + '</td><td>' + exceptionClassName
 						+ '</td><td>' + message
 						+ '</td><td>' + date
