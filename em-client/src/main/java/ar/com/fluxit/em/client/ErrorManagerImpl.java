@@ -42,7 +42,6 @@ public class ErrorManagerImpl implements ErrorManager {
 	@Override
 	public void registerError(Throwable throwable) {
 		registerError(throwable, null);
-
 	}
 
 	@Override
