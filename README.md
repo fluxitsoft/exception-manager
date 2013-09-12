@@ -19,13 +19,13 @@ Desde acá podés ver algunos  [Screenshots](https://github.com/fluxitsoft/excep
     <dependency>
       <groupId>ar.com.fluxit</groupId>
       <artifactId>em-client</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.1</version>
     </dependency>
     
     <dependency>
       <groupId>ar.com.fluxit</groupId>
       <artifactId>em-source-code-provider</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.1</version>
     </dependency>
 ```
 * Agregar en algún punto de la aplicación que usted considera clave para detectar errores el registro de la excepción producida.
