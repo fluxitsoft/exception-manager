@@ -2,12 +2,14 @@ package ar.com.fluxit.em.client;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
 import java.lang.management.MemoryUsage;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ import ar.com.fluxit.em.model.RequestContext;
 
 import com.google.common.base.Throwables;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class ErrorManagerImpl implements ErrorManager {
 
@@ -40,13 +43,12 @@ public class ErrorManagerImpl implements ErrorManager {
 	}
 
 	@Override
-	public void registerError(Throwable throwable) {
-		registerError(throwable, null);
-
+	public String registerError(Throwable throwable) {
+		return registerError(throwable, null);
 	}
 
 	@Override
-	public void registerError(Throwable throwable, HttpServletRequest request) {
+	public String registerError(Throwable throwable, HttpServletRequest request) {
 
 		Error error = new Error();
 
@@ -61,19 +63,19 @@ public class ErrorManagerImpl implements ErrorManager {
 
 		error.setExceptionDetails(fillExceptionDetails(throwable));
 
-		this.sendError(error);
+		return this.sendError(error);
 
 	}
 
-	private void sendError(Error error) {
+	private String sendError(Error error) {
 		try {
 
-			Gson gson = new Gson();
+			Gson gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapter(Object.class, new NaturalDeserializer()).create();
 			String json = gson.toJson(error);
 
 			URL url = new URL(errorManagerUrl);
 
-			URLConnection urlc = url.openConnection();
+			HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
 
 			urlc.setDoInput(true);
 			urlc.setDoOutput(true);
@@ -87,17 +89,28 @@ public class ErrorManagerImpl implements ErrorManager {
 			writer.close();
 			os.close();
 
+			
+			InputStream is;
+			if (urlc.getResponseCode() >= 400) {
+			    is = urlc.getErrorStream();
+			} else {
+			    is = urlc.getInputStream();
+			}
+			
 			BufferedReader br = new BufferedReader(new InputStreamReader(
-					urlc.getInputStream()));
+					is));
+			
 			String l = null;
+			String result = "";
 			while ((l = br.readLine()) != null) {
-				System.out.println(l);
+				result += l;
 			}
 			br.close();
+			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		return null;
 	}
 
 	private void fillRequestContext(HttpServletRequest request, Error error) {

@@ -4,9 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface ErrorManager {
 
-	void registerError(Throwable throwable);
+	String registerError(Throwable throwable);
 
-	void registerError(Throwable throwable,
+	String registerError(Throwable throwable,
 			HttpServletRequest httpServletRequest);
 
 }

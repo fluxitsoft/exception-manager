@@ -9,6 +9,11 @@
 		<put-attribute name="body" value="/WEB-INF/views/error/error.jsp"></put-attribute>
 	</definition>	
 	
+	<definition name="simpleError" extends="default">
+	<put-attribute name="header" value="/WEB-INF/views/error/none.jsp"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/error/error.jsp"></put-attribute>
+	</definition>	
+	
 		<definition name="errors" extends="default">
 		<put-attribute name="body" value="/WEB-INF/views/error/errors.jsp"></put-attribute>
 	</definition>	

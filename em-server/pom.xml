@@ -4,13 +4,13 @@
 	<groupId>ar.com.fluxit</groupId>
 	<artifactId>em-server</artifactId>
 	<packaging>war</packaging>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>Exception Manager - Server</name>
 
 	<parent>
 		<groupId>ar.com.fluxit</groupId>
 		<artifactId>em</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.1</version>
 	</parent>
 
 	<properties>
@@ -30,7 +30,7 @@
 		<dependency>
 			<groupId>ar.com.fluxit</groupId>
 			<artifactId>em-entity</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1</version>
 		</dependency>
 
 		<!-- Spring -->

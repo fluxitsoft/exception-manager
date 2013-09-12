@@ -18,11 +18,12 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 
 public class GsonHttpMessageConverter extends AbstractHttpMessageConverter<Object> {
 
-    private Gson gson = new Gson();
+    private Gson gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapter(Object.class, new NaturalDeserializer()).create();
 
     public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 

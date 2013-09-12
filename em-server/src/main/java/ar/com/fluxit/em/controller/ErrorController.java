@@ -60,6 +60,14 @@ class ErrorController {
 	}
 	
 	
+	@RequestMapping(value = "simpleError")
+	public String simpleError(@RequestParam String id, Model model) {
+
+		error(id, model);
+		return "simpleError";
+	}
+	
+	
 	@RequestMapping(value = "errors")
 	public String errors(Model model, @RequestParam(required=false) String applicationKey) {
 

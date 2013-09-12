@@ -4,7 +4,7 @@
 	<groupId>ar.com.fluxit</groupId>
 	<artifactId>em</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>Exception Manager</name>
 
    	<modules>
@@ -12,6 +12,7 @@
         	<module>em-client</module>
         	<module>em-server</module>
         	<module>em-source-code-provider</module>
+		<module>app-example</module>
 	</modules>
 
 
@@ -20,6 +21,14 @@
 		<java-version>1.7</java-version>
 		
 	</properties>
+
+<distributionManagement>
+<repository>
+<id>fluxit-release</id>
+<name>fluxit-release</name>
+<url>http://tools.intranet.fluxit.com.ar/nexus/content/repositories/fluxit-release</url>
+</repository>
+</distributionManagement> 
 
 	<repositories>
 		<repository>

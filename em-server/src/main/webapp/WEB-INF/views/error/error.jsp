@@ -53,8 +53,8 @@
 }
 </style>
 
-<a id="toggle-update" href="#" class="toggles"><i
-	class="icon-chevron-down"></i></a>
+<!-- <a id="toggle-update" href="#" class="toggles"><i -->
+<!-- 	class="icon-chevron-down"></i></a> -->
 
 <ul class="nav nav-tabs" id="errorTab">
 	<li class="active"><a href="#stacktrace">Stacktrace</a></li>
@@ -112,7 +112,6 @@
 
 		</div>
 
-
 	</div>
 	<div class="tab-pane" id="request">
 
@@ -123,10 +122,10 @@
 				<th>Value</th>
 
 			</tr>
-			<c:forEach items="${error.requestContext.headers}" var="variable">
+			<c:forEach items="${error.requestContext.headers}" var="headerEntry">
 				<tr>
-					<td>${variable.key}</td>
-					<td>${variable.value}</td>
+					<td>${headerEntry.key}</td>
+					<td>${headerEntry.value}</td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -138,10 +137,10 @@
 				<th>Value</th>
 
 			</tr>
-			<c:forEach items="${error.requestContext.parameters}" var="variable">
+			<c:forEach items="${error.requestContext.parameters}" var="parameter">
 				<tr>
-					<td>${variable.key}</td>
-					<td>${variable.value}</td>
+					<td>${parameter.key}</td>
+					<td>${parameter.value}</td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -150,22 +149,20 @@
 		<table class="table table-striped">
 			<tr>
 				<th>Name</th>
-				<th>Value</th>
 				<th>Domain</th>
-				<th>Path</th>
 				<th>Secure</th>
 
 			</tr>
-			<c:forEach items="${error.requestContext.cookies}" var="cookie">
+			
+			<c:forEach items="${error.requestContext.cookies}" var="cookieEntry">
 				<tr>
-					<td>${cookie.key}</td>
-					<td>${cookie.value}</td>
-					<td>${cookie.domain}</td>
-					<td>${cookie.path}</td>
-					<td>${cookie.secure}</td>
+					<td>${cookieEntry.name}</td>
+					<td>${cookieEntry.value}</td>
+					<td>${cookieEntry.secure}</td>
 				</tr>
 			</c:forEach>
 		</table>
+		
 
 		<h3>Others</h3>
 		<table class="table table-striped">
