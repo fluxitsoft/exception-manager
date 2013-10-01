@@ -1,6 +1,7 @@
 package ar.com.fluxit.em.model;
 
 import org.springframework.data.annotation.Id;
+import ar.com.fluxit.em.model.Error;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
