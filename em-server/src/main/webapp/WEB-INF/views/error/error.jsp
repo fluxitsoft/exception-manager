@@ -61,6 +61,8 @@
 	<li><a href="#request">Request context</a></li>
 	<li><a href="#variables">Variables context</a></li>
 	<li><a href="#memory">Memory context</a></li>
+	<li><a href="#log">Log</a></li>
+	<li><a href="#knowledge">Knowledge</a></li>
 	<li><a href="#others">Others</a></li>
 </ul>
 
@@ -282,6 +284,150 @@
 			</tr>
 		</table>
 
+	</div>
+	
+	
+	<div class="tab-pane" id="log">
+		<pre>${error.log}</pre>
+	</div>
+	
+	<div class="tab-pane" id="knowledge">
+		
+		
+		<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span1">
+			<div class="btn-group-vertical">
+				<button class="btn" type="button"><em class="icon-edit"></em></button> <button class="btn" type="button"><em class="icon-thumbs-down"></em></button> <button class="btn" type="button"><em class="icon-thumbs-up"></em></button> <button class="btn" type="button"><em class="icon-star"></em></button> <button class="btn" type="button"><em class=" icon-signal"></em></button>
+			</div>
+		</div>
+		<div class="span11">
+			<p>When checking the database, the table person <strong>does</strong> exist! The connection details to the database (which can be found in the <code>mapping.cfg.xml</code> file) are also correct.</p>
+<h4>Diagnosis</h2>
+
+<p>First, check to see if the problem is cases sensitivity. Connect to the database using your sql client. Run the queries:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre>
+select * from PERSON;
+</pre>
+</div></div>
+
+<p>And:</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre>
+select * from person;
+</pre>
+</div></div>
+
+<h4>Cause</h4>
+<p>The database is case sensitive, or the person table is not created as described in <a href="http://jira.atlassian.com/browse/BUG-9959" class="external-link" rel="nofollow">BUG-9959</a>.</p>
+
+<h4>Resolution</h4>
+<div><div>
+<p>See also <a href="/display/CONFKB/Cannot+Restore+XML+Backup+Due+to+Database+Permissions">Cannot Restore XML Backup Due to Database Permissions</a>.</p>
+</div></div>
+		</div>
+	</div>
+	<hr/>
+	<div class="row-fluid">
+		<div class="span6">
+			<h3>
+				JavaDoc
+			</h3>
+			<p>
+				    <P>An exception that provides information on a database access
+error or other errors.
+
+<P>Each <code>SQLException</code> provides several kinds of information:
+<UL>
+  <LI> a string describing the error.  This is used as the Java Exception
+      message, available via the method <code>getMesasge</code>.
+  <LI> a "SQLstate" string, which follows either the XOPEN SQLstate conventions
+       or the SQL:2003 conventions.
+      The values of the SQLState string are described in the appropriate spec.
+      The <code>DatabaseMetaData</code> method <code>getSQLStateType</code>
+      can be used to discover whether the driver returns the XOPEN type or
+      the SQL:2003 type.
+  <LI> an integer error code that is specific to each vendor.  Normally this will
+      be the actual error code returned by the underlying database.
+  <LI> a chain to a next Exception.  This can be used to provide additional
+      error information.
+  <LI> the causal relationship, if any for this <code>SQLException</code>.
+</UL>
+	
+		</div>
+		<div class="span6">
+			<h3>
+				Similar errors
+			</h3>
+			<table class="table table-tripped">
+				<thead>
+					<tr>
+	
+						<th>
+							Application
+						</th>
+						<th>
+							Percent
+						</th>
+						<th>
+							Date
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							Application X
+						</td>
+						<td>%98
+						</td>
+						<td>
+							01/04/2012
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Application Y
+						</td>
+						<td>
+							%95
+						</td>
+						<td>
+							01/04/2013
+						</td>
+						
+					</tr>
+					<tr>
+						<td>
+							Application Z
+						</td>
+						<td>
+							%70
+						</td>
+						<td>
+							01/04/2013
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Application Y
+						</td>
+						<td>
+							%59
+						</td>
+						<td>
+							03/04/2012
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+		
+		
 	</div>
 	
 	

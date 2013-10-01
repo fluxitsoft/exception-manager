@@ -50,20 +50,7 @@ public class ErrorManagerImpl implements ErrorManager {
 	@Override
 	public String registerError(Throwable throwable, HttpServletRequest request) {
 
-		Error error = new Error();
-
-		error.setApplicationKey(applicationKey);
-
-		this.fillRequestContext(request, error);
-
-		this.fillMemoryUsage(error);
-
-		error.setEnvironmentProperties(System.getenv());
-		error.setSystemProperties(new HashMap(System.getProperties()));
-
-		error.setExceptionDetails(fillExceptionDetails(throwable));
-
-		return this.sendError(error);
+		return registerError(throwable, request, null);
 
 	}
 
@@ -203,6 +190,27 @@ public class ErrorManagerImpl implements ErrorManager {
 			result.add(0, exceptionDetail);
 		}
 		return result;
+	}
+
+	@Override
+	public String registerError(Throwable throwable,
+			HttpServletRequest request, String log) {
+		Error error = new Error();
+
+		error.setApplicationKey(applicationKey);
+
+		this.fillRequestContext(request, error);
+
+		this.fillMemoryUsage(error);
+
+		error.setEnvironmentProperties(System.getenv());
+		error.setSystemProperties(new HashMap(System.getProperties()));
+		
+		error.setLog(log);
+
+		error.setExceptionDetails(fillExceptionDetails(throwable));
+
+		return this.sendError(error);
 	}
 
 }

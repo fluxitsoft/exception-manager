@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration scan="true" scanPeriod="3 seconds">
-	<contextName>em</contextName>
+	<contextName>app-example</contextName>
 
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
@@ -9,11 +9,14 @@
 			</pattern>
 		</encoder>
 	</appender>
-
-	<jmxConfigurator />
+	
+	<appender name="LASTLINES" class="ar.com.fluxit.em.controller.LastLinesAppender"/>
+	
+	<logger name="ORG" level="DEBUG" />
+	
 	<root level="INFO">
 		<appender-ref ref="STDOUT" />
+		<appender-ref ref="LASTLINES" />
 	</root>
 
-	<logger name="ar.com.fluxit" level="ALL" />
 </configuration>

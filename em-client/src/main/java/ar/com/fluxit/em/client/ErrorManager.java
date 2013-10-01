@@ -8,5 +8,8 @@ public interface ErrorManager {
 
 	String registerError(Throwable throwable,
 			HttpServletRequest httpServletRequest);
+	
+	String registerError(Throwable throwable,
+			HttpServletRequest httpServletRequest, String log);
 
 }

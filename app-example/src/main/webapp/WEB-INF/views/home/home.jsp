@@ -8,7 +8,9 @@
 	<p>Welcome to the Exception Manager - APP Example!</p>
 	<p>
 		<a href="<s:url value='/errorRequest' />"
-			class="btn btn-primary btn-large"> Simple request error </a> <a
+			class="btn btn-primary btn-large">Simple request error </a>
+			<a href="<s:url value='/errorRequest2' />"
+			class="btn btn-primary btn-large">Complex request error </a> <a
 			id="btn" class="btn btn-primary btn-large"> Ajax request error </a>
 	</p>
 

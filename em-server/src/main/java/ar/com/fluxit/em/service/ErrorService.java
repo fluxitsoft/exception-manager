@@ -37,8 +37,11 @@ public class ErrorService {
 		mongoOperations.insert(error, "errors");
 		errorIndexService.add(error);
 
-		CometService.instance.publish("admin", toErrorDetail(error));
+		try {
+			CometService.instance.publish("admin", toErrorDetail(error));
+		} catch (Exception e) {
 
+		}
 		return error.getId();
 	}
 
@@ -64,7 +67,7 @@ public class ErrorService {
 		List<ErrorDetail> errorDetails = new ArrayList<>();
 		Query query = new Query();
 		query.with(new Sort(Direction.DESC, "time")).limit(100);
-		if (applicationKey != null) {
+		if (StringUtils.isNotEmpty(applicationKey)) {
 			query.addCriteria(Criteria.where("applicationKey").is(
 					applicationKey));
 		}
@@ -94,21 +97,17 @@ public class ErrorService {
 			errorDetail.setApplicationName("Unknown application");
 		}
 
-		
 		errorDetail.setMessage(errorDocument.getExceptionDetails().get(0)
 				.getMessage());
 
-		
-		
-		String className = errorDocument
-				.getExceptionDetails().get(0).getClassName();
-		
+		String className = errorDocument.getExceptionDetails().get(0)
+				.getClassName();
+
 		errorDetail.setTargetExceptionClassName(className);
-		
-		className = StringUtils.substringBefore(className, ".") + ".." + StringUtils.substringAfterLast(className, ".") ;
+
+		className = StringUtils.substringBefore(className, ".") + ".."
+				+ StringUtils.substringAfterLast(className, ".");
 		errorDetail.setTargetExceptionShortClassName(className);
-		
-		
 
 		errorDetail.setTime(errorDocument.getTime().toString());
 		return errorDetail;

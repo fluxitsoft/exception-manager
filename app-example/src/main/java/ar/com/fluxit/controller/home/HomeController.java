@@ -18,6 +18,12 @@
  ******************************************************************************/
 package ar.com.fluxit.controller.home;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,6 +43,20 @@ public class HomeController {
 	@RequestMapping(value = "/errorRequest", method = RequestMethod.GET)
 	public String errorRequest() {
 		int i = 1/0;
+		return "home";
+
+	}
+	
+	@RequestMapping(value = "/errorRequest2", method = RequestMethod.GET)
+	public String errorRequest2() {
+		try{
+			  EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
+			    EmbeddedDatabase db = builder.build();
+			    // do stuff against the db (EmbeddedDatabase extends javax.sql.DataSource)
+			    db.shutdown();
+		}catch(Exception ex){
+			throw new RuntimeException(ex);
+		}
 		return "home";
 
 	}

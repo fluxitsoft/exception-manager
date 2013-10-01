@@ -18,17 +18,35 @@ $(document).ready(function(){
 		var message = params.message;
 		var date = params.time;
 
-		var url = "<c:url value='/error?id=" + id + "'/>";
+		var url = "<c:url value='/error?id=' />" + id;
+		
+		
 		$("#errors").prepend(
 				'<tr><td><a class="btn btn-mini" href="' + url +'"><i class="icon-eye-open"></i></a></td><td>'
 						+ applicationName + '</td><td>' + exceptionClassName
 						+ '</td><td>' + message
 						+ '</td><td>' + date
 						+ '</td></tr>');
-	})
+
+
+
+	});
+	$("#application").change(function(selected){
+		document.location.href = "<c:url value='/errors?applicationKey=' />" +  $('#application option:selected').val();
+	});
 });
 
 </script>
+
+Application: <select id='application' class="form-control">
+ 	
+    <option value="${applicationSelected.key}" selected>${applicationSelected.name}</option>
+    <c:forEach items="${applications}" var="application">
+        <c:if test="${application.key != applicationSelected.key}">
+            <option value="${application.key}">${application.name}</option>
+        </c:if>
+    </c:forEach>
+</select>
 
 <table class="table  table-striped" id="errors">
 

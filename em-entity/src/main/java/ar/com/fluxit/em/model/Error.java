@@ -41,6 +41,8 @@ public class Error {
 
 	private Map<String, String> systemProperties;
 	
+	private String log;
+	
 	private MemoryContext memoryContext = new MemoryContext();
 
 	public String getApplicationKey() {
@@ -106,5 +108,15 @@ public class Error {
 	public void setMemoryContext(MemoryContext memoryContext) {
 		this.memoryContext = memoryContext;
 	}
+
+	public String getLog() {
+		return log;
+	}
+
+	public void setLog(String log) {
+		this.log = log;
+	}
+	
+	
 
 }

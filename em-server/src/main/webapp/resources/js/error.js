@@ -5,8 +5,18 @@ $(document).ready(function() {
 	layoutTabs();
 	layoutStackTrace();
 	initialSelection();
+	logSnippet();
 
 });
+
+logSnippet = function(){
+//	$("#logSnippet").snippet("log4j", {
+//		style : "ide-eclipse",
+//		boxColor : "#5F9EA0",
+//		boxFill : "#5F9EA0",
+//		box : "" + lineNumber
+//	});
+};
 
 layoutTabs = function() {
 
@@ -126,7 +136,7 @@ retrieveSourceCode = function() {
 												.animate(
 														{
 															scrollTop : $($("#preSourceCode > ol > li")[lineNumber - 1])
-																	.offset().top - 300
+																	.offset().top - 400
 														}, 0);
 									},
 									error : function(e) {
